@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:src="@color/grey"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:text="Bienvenido a Cáritas de Monterrey"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="Escoja una opción"/>
+
+    <Button
+        android:id="@+id/bt_person"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/blue1"
+        android:fontFamily="sans-serif"
+        android:text="Vengo a ver a una persona en particular"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/bt_department"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/blue2"
+        android:fontFamily="sans-serif"
+        android:text="Sé a qué departamento vengo"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/bt_help"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/blue3"
+        android:fontFamily="sans-serif"
+        android:text="No se a qué departamento dirigirme"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
+
+
+</LinearLayout>
