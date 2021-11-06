@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Visitapp">
         <activity
+            android:name=".Mensaje"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:theme="@style/MyDialogTheme" />
+        <activity
             android:name=".Busqueda"
             android:exported="false" />
         <activity
