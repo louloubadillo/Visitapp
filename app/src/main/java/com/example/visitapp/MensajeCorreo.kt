@@ -2,18 +2,19 @@ package com.example.visitapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.visitapp.databinding.ActivityMensajeBinding
+import com.example.visitapp.databinding.ActivityMensajeCorreoBinding
 
-class Mensaje : AppCompatActivity() {
+class MensajeCorreo : AppCompatActivity() {
+    private lateinit var binding : ActivityMensajeCorreoBinding
 
-    private lateinit var binding : ActivityMensajeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMensajeBinding.inflate(layoutInflater)
+        binding = ActivityMensajeCorreoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btConfirm.setOnClickListener{
             onBackPressed()
         }
+
     }
 }
