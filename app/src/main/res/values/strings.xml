@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Visitapp</string>
+    <string name="dpto1">Finanzas</string>
+    <string name="pregunta_dpto">¿A que departamento viene?</string>
+    <string name="bienvenida">Bienvenido a Cáritas de Monterrey</string>
+    <string name="logo_desc">logo de caritas</string>
+    <string name="dpto2">Logistica</string>
+    <string name="dpto3">Alimentos</string>
+    <string name="notif_message">Notificacion enviada. Favor de esperar en recepción.</string>
+    <string name="confirm">Confirmar</string>
 </resources>
