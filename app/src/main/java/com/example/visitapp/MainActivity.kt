@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btDepartment.setOnClickListener{
+        binding.btPerson.setOnClickListener{
             val intent = Intent(this, Busqueda::class.java)
             startActivity(intent)
         }
 
-        binding.btPerson.setOnClickListener{
+        binding.btDepartment.setOnClickListener{
             val intent = Intent(this, Seleccion::class.java)
             startActivity(intent)
         }
