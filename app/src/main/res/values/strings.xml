@@ -14,6 +14,6 @@
     <string name="op_ayuda">No se a qué departamento dirigirme</string>
     <string name="q_persona">¿Con quién desea reunirse?</string>
     <string name="person_filler">Nombre</string>
-    <string name="continue">Continuar</string>
+    <string name="proceed">Continuar</string>
     <string name="mensaje_recepcion">Favor de dirigirse a recepción para recibir información</string>
 </resources>
