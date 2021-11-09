@@ -8,4 +8,12 @@
     <string name="dpto3">Alimentos</string>
     <string name="notif_message">Notificacion enviada. Favor de esperar en recepción.</string>
     <string name="confirm">Confirmar</string>
+    <string name="ops_principial">Escoja una opción</string>
+    <string name="op_persona">Vengo a ver a una persona en particular</string>
+    <string name="op_dpto">Sé a qué departamento vengo</string>
+    <string name="op_ayuda">No se a qué departamento dirigirme</string>
+    <string name="q_persona">¿Con quién desea reunirse?</string>
+    <string name="person_filler">Nombre</string>
+    <string name="continue">Continuar</string>
+    <string name="mensaje_recepcion">Favor de dirigirse a recepción para recibir información</string>
 </resources>

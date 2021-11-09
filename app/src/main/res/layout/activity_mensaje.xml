@@ -17,22 +17,22 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:text="Favor de dirigirse a recepción para recibir información" />
+        android:text="@string/mensaje_recepcion" />
 
     <Button
         android:id="@+id/bt_confirm"
         android:layout_width="400dp"
         android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_marginStart="50dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="40dp"
-        android:layout_gravity="center"
         android:backgroundTint="@color/blue1"
         android:fontFamily="sans-serif"
-        android:textColor="@color/white"
+        android:text="@string/confirm"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:text="Confirmar"/>
+        android:textStyle="bold" />
 </LinearLayout>

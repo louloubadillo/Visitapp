@@ -6,32 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Seleccion">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
         <ImageView
             android:layout_width="500dp"
             android:layout_height="200dp"
-            android:layout_marginTop="30dp"
-            android:scaleType="centerInside"
             android:layout_gravity="center"
-            android:src="@drawable/logo"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/logo_desc"
+            android:scaleType="centerInside"
 
-            />
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:text="Bienvenido a Cáritas de Monterrey"/>
+            android:layout_marginTop="50dp"
+            android:text="@string/bienvenida"
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +37,7 @@
             android:textSize="30sp"
             android:layout_marginTop="30dp"
             android:layout_gravity="center"
-            android:text="Escoja una opción"/>
+            android:text="@string/ops_principial"/>
 
         <Button
             android:id="@+id/bt_person"
@@ -50,7 +48,7 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="@color/blue1"
             android:fontFamily="sans-serif"
-            android:text="Vengo a ver a una persona en particular"
+            android:text="@string/op_persona"
             android:textAllCaps="false"
             android:textSize="25sp" />
 
@@ -63,7 +61,7 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="@color/blue2"
             android:fontFamily="sans-serif"
-            android:text="Sé a qué departamento vengo"
+            android:text="@string/op_dpto"
             android:textAllCaps="false"
             android:textSize="25sp" />
 
@@ -76,7 +74,7 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="@color/blue3"
             android:fontFamily="sans-serif"
-            android:text="No se a qué departamento dirigirme"
+            android:text="@string/op_ayuda"
             android:textAllCaps="false"
             android:textSize="25sp" />
 
