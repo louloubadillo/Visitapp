@@ -30,4 +30,4 @@ project.properties
 *.iws
 # Gradle-based build
 build/
-
+app/src/main/java/com/example/visitapp/data/Credentials.kt
