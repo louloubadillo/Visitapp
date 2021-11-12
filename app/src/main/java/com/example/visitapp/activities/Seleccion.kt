@@ -1,8 +1,9 @@
-package com.example.visitapp
+package com.example.visitapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.visitapp.R
 import com.example.visitapp.databinding.ActivitySeleccionBinding
 
 class Seleccion : AppCompatActivity() {

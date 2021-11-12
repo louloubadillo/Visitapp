@@ -1,8 +1,9 @@
-package com.example.visitapp
+package com.example.visitapp.adapters
 
 import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Filter
+import com.example.visitapp.models.Empleado
 import java.util.*
 
 class AutocompleteAdapter (context: Context, val layoutResource: Int, val empleados: Array<Empleado>) : ArrayAdapter<Empleado>(context,layoutResource,empleados){

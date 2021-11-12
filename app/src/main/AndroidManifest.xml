@@ -10,23 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Visitapp">
         <activity
-            android:name=".MensajeCorreo"
+            android:name=".activities.MensajeCorreo"
             android:excludeFromRecents="true"
             android:exported="true"
             android:theme="@style/MyDialogTheme" />
         <activity
-            android:name=".Mensaje"
+            android:name=".activities.Mensaje"
             android:excludeFromRecents="true"
             android:exported="false"
             android:theme="@style/MyDialogTheme" />
         <activity
-            android:name=".Busqueda"
+            android:name=".activities.Busqueda"
             android:exported="false" />
         <activity
-            android:name=".Seleccion"
+            android:name=".activities.Seleccion"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

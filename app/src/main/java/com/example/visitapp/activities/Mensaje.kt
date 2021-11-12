@@ -1,4 +1,4 @@
-package com.example.visitapp
+package com.example.visitapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

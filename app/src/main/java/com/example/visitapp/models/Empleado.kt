@@ -1,4 +1,4 @@
-package com.example.visitapp
+package com.example.visitapp.models
 
 data class Empleado(
     val nombre: String,

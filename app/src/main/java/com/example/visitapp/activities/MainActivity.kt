@@ -1,15 +1,9 @@
-package com.example.visitapp
+package com.example.visitapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 import com.example.visitapp.databinding.ActivityMainBinding
-import android.R
-import android.app.Dialog
-import android.graphics.Color
-import androidx.fragment.app.FragmentTransaction
-import android.graphics.drawable.ColorDrawable
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
