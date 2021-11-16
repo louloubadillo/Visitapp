@@ -4,20 +4,10 @@ import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.example.visitapp.adapters.AutocompleteAdapter
 import com.example.visitapp.models.Empleado
 import com.example.visitapp.databinding.ActivityBusquedaBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
-import javax.mail.Message
-import javax.mail.Transport
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
 
 class Busqueda : AppCompatActivity() {
     private lateinit var binding: ActivityBusquedaBinding
@@ -49,7 +39,6 @@ class Busqueda : AppCompatActivity() {
         binding.autoCompleteTextViewEmpleado.setOnItemClickListener{ parent, view,position,id ->
 
             var selected = parent.getItemAtPosition(position) as Empleado
-
             Toast.makeText(this,selected.correo, Toast.LENGTH_SHORT).show()
         }
 
@@ -59,26 +48,6 @@ class Busqueda : AppCompatActivity() {
             val intent = Intent(this, Mensaje::class.java)
             startActivity(intent)
 
-        }
-    }
-
-    // Enviar correo dado un destinatario (to), un asunto (subject) y su contenido (content)
-    private fun sendEmail(to: String, subject: String, content: String) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
-                    val mm = MimeMessage(MainActivity.mSession)
-                    mm.addRecipient(
-                        Message.RecipientType.TO,
-                        InternetAddress(to)
-                    )
-                    mm.subject = subject
-                    mm.setText(content)
-                    Transport.send(mm)
-                } catch (e : Exception) {
-                    Log.d(mTAG, e.toString())
-                }
-            }
         }
     }
 }
