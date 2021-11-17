@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        Log.i(mTAG, "Generating aaaa session")
+
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 Log.i(mTAG, "Generating email session")
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mBinding.btPerson.setOnClickListener{
+            Log.i(mTAG, "Generating aaaa session")
             val intent = Intent(this, Busqueda::class.java)
             startActivity(intent)
         }

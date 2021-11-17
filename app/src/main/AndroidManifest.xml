@@ -15,20 +15,25 @@
             android:name=".activities.MensajeCorreo"
             android:excludeFromRecents="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/MyDialogTheme" />
         <activity
             android:name=".activities.Mensaje"
             android:excludeFromRecents="true"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/MyDialogTheme" />
         <activity
             android:name=".activities.Busqueda"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.Seleccion"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

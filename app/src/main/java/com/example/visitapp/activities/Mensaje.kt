@@ -15,9 +15,6 @@ class Mensaje : AppCompatActivity() {
 
         binding.btConfirm.setOnClickListener{
             onBackPressed()
-            // aqui, antes de esto se guardan los datos de la visita (hora de llegada y nombre de persona)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 }

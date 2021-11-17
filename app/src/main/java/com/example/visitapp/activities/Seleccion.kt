@@ -1,5 +1,6 @@
 package com.example.visitapp.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,26 +19,39 @@ class Seleccion : AppCompatActivity() {
 
         binding.dpto1.setOnClickListener{
             val intent = Intent(this, MensajeCorreo::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,1)
 
         }
 
         binding.dpto2.setOnClickListener{
             val intent = Intent(this, MensajeCorreo::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,1)
 
         }
 
         binding.dpto3.setOnClickListener{
-            val intent = Intent(this, Mensaje::class.java)
-            startActivity(intent)
+            val intent = Intent(this, MensajeCorreo::class.java)
+            startActivityForResult(intent,1)
 
         }
 
         binding.dpto4.setOnClickListener{
-            val intent = Intent(this, Mensaje::class.java)
-            startActivity(intent)
+            val intent = Intent(this, MensajeCorreo::class.java)
+            startActivityForResult(intent,1)
 
         }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                1 -> {
+                    if (data != null) {
+                        if(data.getIntExtra("result",0) == 1)
+                            finish()
+                    }
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

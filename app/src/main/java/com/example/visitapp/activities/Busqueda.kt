@@ -1,17 +1,29 @@
 package com.example.visitapp.activities
 
 import android.R
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import com.example.visitapp.adapters.AutocompleteAdapter
 import com.example.visitapp.models.Empleado
 import com.example.visitapp.databinding.ActivityBusquedaBinding
+import com.example.visitapp.utilities.EmailSender
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Busqueda : AppCompatActivity() {
     private lateinit var binding: ActivityBusquedaBinding
     val mTAG = Busqueda::class.simpleName
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +52,33 @@ class Busqueda : AppCompatActivity() {
 
             var selected = parent.getItemAtPosition(position) as Empleado
             Toast.makeText(this,selected.correo, Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    Log.i(mTAG, "Generating email session")
+                    EmailSender.sendEmail("axelvillanueva@pm.me","Test","Lorem Ipsum")
+                }
+            }
         }
 
         // Hacer nueva activity de mensaje
         // A esta le vamos a pasar el string con el nombre del empleado
         binding.buttonContinuar.setOnClickListener {
-            val intent = Intent(this, Mensaje::class.java)
-            startActivity(intent)
-
+            val intent = Intent(this, MensajeCorreo::class.java)
+            startActivityForResult(intent,1)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                1 -> {
+                    if (data != null) {
+                        if(data.getIntExtra("result",0) == 1)
+                            finish()
+                    }
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
