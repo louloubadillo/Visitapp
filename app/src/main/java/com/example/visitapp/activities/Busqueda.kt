@@ -55,7 +55,7 @@ class Busqueda : AppCompatActivity() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     Log.i(mTAG, "Generating email session")
-                    EmailSender.sendEmail("axelvillanueva@pm.me","Test","Lorem Ipsum")
+                    EmailSender.sendEmail("erick.gomez1003@gmail.com","Test","Lorem Ipsum")
                 }
             }
         }
@@ -68,6 +68,7 @@ class Busqueda : AppCompatActivity() {
         }
     }
 
+    // Handler para cuando se cierra el intent de MensajeCorreo, de tal forma que vuelve a MainActivity sin acumularse en el stack.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
