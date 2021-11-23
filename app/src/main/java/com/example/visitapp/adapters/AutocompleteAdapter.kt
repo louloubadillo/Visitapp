@@ -6,6 +6,7 @@ import android.widget.Filter
 import com.example.visitapp.models.Empleado
 import java.util.*
 
+// Clase para autocompletar al buscar un empleado escribiendo su nombre o departamento
 class AutocompleteAdapter (context: Context, val layoutResource: Int, val empleados: Array<Empleado>) : ArrayAdapter<Empleado>(context,layoutResource,empleados){
 
     var filteredEmpleados: List<Empleado> = listOf()

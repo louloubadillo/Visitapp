@@ -31,7 +31,7 @@ class Busqueda : AppCompatActivity() {
         setContentView(binding.root)
 
         // Aquí se usa la base de datos
-        // Este solo es un ejemplo hardcodeado
+        // Este solo es un ejemplo
         val Empleados = arrayOf(
             Empleado("Jorge Flores", "IT","jorge@email.com"),
             Empleado("Enrique Ayala", "RH","enrique@email.com"),
@@ -48,6 +48,7 @@ class Busqueda : AppCompatActivity() {
         binding.autoCompleteTextViewEmpleado.threshold = 2
         binding.autoCompleteTextViewEmpleado.setAdapter(adapter)
 
+        // Ocurre al seleccionar uno de los empleados en el autocompletado:
         binding.autoCompleteTextViewEmpleado.setOnItemClickListener{ parent, view,position,id ->
 
             var selected = parent.getItemAtPosition(position) as Empleado
@@ -60,8 +61,8 @@ class Busqueda : AppCompatActivity() {
             }
         }
 
-        // Hacer nueva activity de mensaje
-        // A esta le vamos a pasar el string con el nombre del empleado
+        // Intent de Mensaje de confirmación
+        // Ocurre al oprimir el boton de Continuar
         binding.buttonContinuar.setOnClickListener {
             val intent = Intent(this, MensajeCorreo::class.java)
             startActivityForResult(intent,1)
