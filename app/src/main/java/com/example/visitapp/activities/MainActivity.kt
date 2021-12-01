@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
 import com.example.visitapp.databinding.ActivityMainBinding
+import com.example.visitapp.utilities.DbUtils
 import com.example.visitapp.utilities.EmailSender
+import com.example.visitapp.utilities.RequestHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,8 +29,11 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 Log.i(mTAG, "Generating email session")
                 EmailSender.initializeMailSession()
+//                DbUtils.connect()
             }
         }
+//        val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
+//        RequestHandler.getInstance(this).login()
 
         // Intents a Busqueda, Selección y Mensaje, respectivamente, en los botones correspondientes.
         mBinding.btPerson.setOnClickListener{
