@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.Seleccion">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".activities.Seleccion">
 
         <LinearLayout
@@ -49,60 +50,19 @@
                 android:textSize="30sp" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/dpto1"
-            android:layout_width="280dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="80dp"
-            android:backgroundTint="@color/blue2"
-            android:fontFamily="sans-serif"
-            android:text="@string/dpto1"
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-        <Button
-            android:id="@+id/dpto2"
-            android:layout_width="280dp"
-            android:layout_height="200dp"
-            android:layout_marginEnd="100dp"
-            android:backgroundTint="@color/blue2"
-            android:fontFamily="sans-serif"
-            android:text="@string/dpto2"
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/dpto1"
-            app:layout_constraintTop_toTopOf="@+id/dpto1" />
-
-        <Button
-            android:id="@+id/dpto3"
-            android:layout_width="280dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="60dp"
-            android:backgroundTint="@color/blue2"
-            android:fontFamily="sans-serif"
-            android:text="Imagen"
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="@+id/dpto2"
-            app:layout_constraintTop_toBottomOf="@+id/dpto2" />
-
-        <Button
-            android:id="@+id/dpto4"
-            android:layout_width="280dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="60dp"
-            android:backgroundTint="@color/blue2"
-            android:fontFamily="sans-serif"
-            android:text="@string/dpto3"
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="@+id/dpto1"
-            app:layout_constraintTop_toBottomOf="@+id/dpto1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+    <ScrollView
+    android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/rv_Departments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    </ScrollView>
+</LinearLayout>
