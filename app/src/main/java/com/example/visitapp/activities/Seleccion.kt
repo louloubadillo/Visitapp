@@ -14,10 +14,19 @@ import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.visitapp.R
+import com.example.visitapp.data.DbInfo
 import com.example.visitapp.databinding.ActivitySeleccionBinding
+import com.example.visitapp.models.Departamento
+import com.example.visitapp.models.Empleado
+import com.example.visitapp.utilities.EmailSender
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Seleccion : AppCompatActivity() {
     private lateinit var binding : ActivitySeleccionBinding
@@ -29,12 +38,12 @@ class Seleccion : AppCompatActivity() {
         binding = ActivitySeleccionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val names = arrayOf<String>("Administración","Recursos Humanos","Banco de Medicamentos","Banco de Ropa","Casos","Comunicación","Posada del Peregrino","Mercado de Abastos","Dirección General","Banco de Alimentos","Banco de Voluntarios","Brigadas Médicas","Cáritas Parroquiales","Desarrollo y Proyectos Especiales","Promoción Humana", "Transporte y Atención a Migrantes")
-
-        val adapter = CustomAdapter(names);
+        val adapter = DbInfo.departments?.let { CustomAdapter(it) };
         binding.rvDepartments.layoutManager = GridLayoutManager(this,2)
         binding.rvDepartments.adapter =adapter
-        adapter.notifyDataSetChanged()
+        if (adapter != null) {
+            adapter.notifyDataSetChanged()
+        }
 
         Log.i("Seleccion","Binding working?")
     }
@@ -62,7 +71,7 @@ class Seleccion : AppCompatActivity() {
     }
 }
 
-class CustomAdapter(private val dataSet: Array<String>) :
+class CustomAdapter(private val dataSet: Array<Departamento>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**
@@ -91,13 +100,20 @@ class CustomAdapter(private val dataSet: Array<String>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val context = viewHolder.btn.context
-        Log.i("Seleccion",dataSet[0])
+        Log.i("Seleccion",dataSet[0].toString())
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.btn.text = dataSet[position]
+        viewHolder.btn.text = dataSet[position].name
         viewHolder.btn.setOnClickListener {
+            val encargado = DbInfo.employees?.get(dataSet[position].idx_encargado)
+            CoroutineScope(Dispatchers.IO).launch {
+                if (encargado != null) {
+                    EmailSender.sendEmail(encargado.correo)
+                }
+            }
+
             val intent = Intent(context, MensajeCorreo::class.java)
-            intent.putExtra("departamento", position)
+            intent.putExtra("departamento", encargado?.departamento)
             //startActivityForResult(intent,1)
             (context as Activity).startActivityForResult(intent, 1)
         }

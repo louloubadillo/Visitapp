@@ -49,7 +49,7 @@ class Busqueda : AppCompatActivity() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     Log.i(mTAG, selected!!.correo)
-                    EmailSender.sendEmail(selected!!.correo,"Nueva visita","Un visitante necesita tu atención.")
+                    EmailSender.sendEmail(selected!!.correo)
                 }
             }
             val intent = Intent(this, MensajeCorreo::class.java)

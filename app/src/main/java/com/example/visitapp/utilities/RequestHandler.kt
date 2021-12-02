@@ -8,6 +8,7 @@ import com.android.volley.*
 import com.android.volley.toolbox.*
 import com.example.visitapp.data.Credentials
 import com.example.visitapp.data.DbInfo
+import com.example.visitapp.models.Departamento
 import com.example.visitapp.models.Empleado
 import org.json.JSONArray
 import org.json.JSONObject
@@ -40,15 +41,14 @@ class RequestHandler constructor(context: Context) {
     fun populateEmployees() {
         val req = JsonArrayRequest(Request.Method.GET, "$url/departamentos", null,
             { response ->
-                DbInfo.departments = Array(response!!.length()) { String() }
+                DbInfo.departments = Array(response!!.length()) { Departamento("", -1) }
                 val len = response.length()
                 for (i in 0 until len) {
                     Log.i(mTAG, response[i].toString())
                     val jobj = response.getJSONObject(i)
-                    val id = jobj.getString("id_departamento")
                     val name = jobj.getString("nombre")
-                    val id_main = jobj.getString("id_encargado")
-                    DbInfo.departments!![i] = name;
+                    val id_main = jobj.getInt("id_encargado")
+                    DbInfo.departments!![i] = Departamento(name, id_main-1);
                 }
             }, { Log.e(mTAG, it.toString())})
         addToRequestQueue(req)

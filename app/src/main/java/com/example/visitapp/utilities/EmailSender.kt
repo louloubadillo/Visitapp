@@ -38,7 +38,7 @@ class EmailSender {
             }
         }
         // Enviar correo dado un destinatario (to), un asunto (subject) y su contenido (content)
-        fun sendEmail(to: String, subject: String, content: String) {
+        fun sendEmail(to: String, subject: String="Nueva visita", content: String="Un visitante necesita tu atención.") {
             try {
                 val mm = MimeMessage(mSession)
                 mm.addRecipient(
@@ -48,6 +48,7 @@ class EmailSender {
                 mm.subject = subject
                 mm.setText(content)
                 Transport.send(mm)
+                Log.i(mTAG, "Sending mail!!!")
             } catch (e : Exception) {
                 Log.d(mTAG, e.toString())
             }
