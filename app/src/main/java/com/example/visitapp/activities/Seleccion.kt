@@ -99,7 +99,7 @@ class CustomAdapter(private val dataSet: Array<String>) :
             val intent = Intent(context, MensajeCorreo::class.java)
             intent.putExtra("departamento", position)
             //startActivityForResult(intent,1)
-            context.startActivity(intent)
+            (context as Activity).startActivityForResult(intent, 1)
         }
     }
 
