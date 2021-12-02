@@ -6,9 +6,6 @@ data class Empleado(
     val departamento: String,
     val correo:  String
     )
-    // En AutocompleteAdapter el usuario puede buscar
-    // un empleado por su nombre o departamento, así
-    // que envíamos a ambos
     {
     override fun toString(): String {
         return nombre

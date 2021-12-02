@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import com.example.visitapp.utilities.RequestHandler
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import kotlin.String as String1
 
 
 class MensajeCorreo : AppCompatActivity() {
@@ -20,6 +21,11 @@ class MensajeCorreo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMensajeCorreoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var departamento = ""
+        val extras = getIntent().getExtras()
+        if(extras != null){
+             departamento = extras.getString("departamento").toString()
+        }
 
         val calendar = Calendar.getInstance()
         val currentdate = DateFormat.getDateInstance().format(calendar.time)
@@ -42,7 +48,7 @@ class MensajeCorreo : AppCompatActivity() {
 
         //TODO: Cambiar el departamento predeterminado por el que corresponde
         val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
-        RequestHandler.getInstance(this).addVisit(str, "1")
+        RequestHandler.getInstance(this).addVisit(str, departamento)
 
         binding.btConfirm.setOnClickListener{
             val returnIntent = Intent()

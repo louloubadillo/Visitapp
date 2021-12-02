@@ -63,7 +63,7 @@ class Busqueda : AppCompatActivity() {
             binding.autoCompleteTextViewEmpleado.setOnItemClickListener{ parent, view,position,id ->
 
                 var selected = parent.getItemAtPosition(position) as Empleado
-                Toast.makeText(this,selected.correo, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,selected.correo, Toast.LENGTH_SHORT).show()
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         Log.i(mTAG, selected.correo)
@@ -75,7 +75,9 @@ class Busqueda : AppCompatActivity() {
             // Intent de Mensaje de confirmación
             // Ocurre al oprimir el boton de Continuar
             binding.buttonContinuar.setOnClickListener {
+                val departamento = "0"
                 val intent = Intent(this, MensajeCorreo::class.java)
+                intent.putExtra("departamento",departamento)
                 startActivityForResult(intent,1)
             }
 
