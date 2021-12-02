@@ -11,6 +11,6 @@ data class Empleado(
     // que envíamos a ambos
     {
     override fun toString(): String {
-        return nombre.plus(" ($departamento)")
+        return nombre
     }
 }

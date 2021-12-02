@@ -39,7 +39,7 @@ class AutocompleteAdapter (context: Context, val layoutResource: Int, val emplea
                     empleados.asList()
                 else
                     empleados.filter {
-                        it.nombre.lowercase(Locale.getDefault()).contains(queryString) || it.departamento.lowercase().contains(queryString)
+                        it.nombre.lowercase(Locale.getDefault()).contains(queryString) || it.correo.lowercase().contains(queryString)
                     }
                 return filterResults
             }

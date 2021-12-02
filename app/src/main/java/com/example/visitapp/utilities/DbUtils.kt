@@ -20,7 +20,7 @@ object DbUtils {
             StrictMode.setThreadPolicy(policy)
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(
-                "jdbc:mysql://192.168.5.111:3306",// +
+                "jdbc:mysql://192.168.68.106:3306",// +
 //                "?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT",
 //                "jdbc:" + Credentials.DbConnection.DATABASE + "://" +
 //                        Credentials.DbConnection.HOST +

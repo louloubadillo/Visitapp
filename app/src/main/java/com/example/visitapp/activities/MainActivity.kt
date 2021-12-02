@@ -32,13 +32,18 @@ class MainActivity : AppCompatActivity() {
 //                DbUtils.connect()
             }
         }
-//        val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
-//        RequestHandler.getInstance(this).login()
+        //comment this
+        val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
+        RequestHandler.getInstance(this).login()
+        //until here
 
         // Intents a Busqueda, Selección y Mensaje, respectivamente, en los botones correspondientes.
         mBinding.btPerson.setOnClickListener{
+
             val intent = Intent(this, Busqueda::class.java)
             startActivity(intent)
+
+            //RequestHandler.getInstance(this).getWorkers()
         }
 
         mBinding.btDepartment.setOnClickListener{
