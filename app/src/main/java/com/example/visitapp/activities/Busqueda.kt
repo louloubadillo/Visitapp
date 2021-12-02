@@ -32,76 +32,53 @@ class Busqueda : AppCompatActivity() {
     val mTAG = Busqueda::class.simpleName
     private val url = Credentials.API.URL
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBusquedaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var selected: Empleado? = null
         val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
-        val req = JsonArrayRequest(Request.Method.GET, "$url/trabajadores",null, {
-                response ->
-            val jsonArray = response
-            val Empleados = Array(jsonArray!!.length()) { Empleado("", "", "") }
-            if (jsonArray != null) {
-                val len = jsonArray.length()
-                for (i in 0 until len) {
-                    Log.i(mTAG, jsonArray[i].toString())
-                    val jobj = jsonArray.getJSONObject(i)
-                    val name = jobj.getString("nombre")
-                    //val department = jobj.getString("departamento")
-                    val email = jobj.getString("email")
-                    Empleados[i] = Empleado(name,"",email);
-                }
-            }
-            val adapter = AutocompleteAdapter(this, R.layout.simple_list_item_1,Empleados)
-
-            binding.autoCompleteTextViewEmpleado.threshold = 2
-            binding.autoCompleteTextViewEmpleado.setAdapter(adapter)
-
-            // Ocurre al seleccionar uno de los empleados en el autocompletado:
-            binding.autoCompleteTextViewEmpleado.setOnItemClickListener{ parent, view,position,id ->
-
-                var selected = parent.getItemAtPosition(position) as Empleado
-                //Toast.makeText(this,selected.correo, Toast.LENGTH_SHORT).show()
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
-                        Log.i(mTAG, selected.correo)
-                        EmailSender.sendEmail(selected.correo,"Nueva visita","Un visitante necesita tu atención.")
+        val req = JsonArrayRequest(Request.Method.GET, "$url/trabajadores",null,
+            { response ->
+                val jsonArray = response
+                val Empleados = Array(jsonArray!!.length()) { Empleado("", "", "") }
+                if (jsonArray != null) {
+                    val len = jsonArray.length()
+                    for (i in 0 until len) {
+                        Log.i(mTAG, jsonArray[i].toString())
+                        val jobj = jsonArray.getJSONObject(i)
+                        val name = jobj.getString("nombre")
+                        val department = jobj.getString("departamento")
+                        val email = jobj.getString("email")
+                        Empleados[i] = Empleado(name,department,email);
                     }
                 }
-            }
+                val adapter = AutocompleteAdapter(this, R.layout.simple_list_item_1,Empleados)
 
-            // Intent de Mensaje de confirmación
-            // Ocurre al oprimir el boton de Continuar
-            binding.buttonContinuar.setOnClickListener {
-                val departamento = "0"
-                val intent = Intent(this, MensajeCorreo::class.java)
-                intent.putExtra("departamento",departamento)
-                startActivityForResult(intent,1)
-            }
+                binding.autoCompleteTextViewEmpleado.threshold = 2
+                binding.autoCompleteTextViewEmpleado.setAdapter(adapter)
 
-        }, { Log.e(mTAG, it.toString())})
+                // Ocurre al seleccionar uno de los empleados en el autocompletado:
+                binding.autoCompleteTextViewEmpleado.setOnItemClickListener{ parent, view,position,id ->
+                    selected = parent.getItemAtPosition(position) as Empleado
+                }
+
+                // Intent de Mensaje de confirmación
+                // Ocurre al oprimir el boton de Continuar
+                binding.buttonContinuar.setOnClickListener {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            Log.i(mTAG, selected!!.correo)
+                            EmailSender.sendEmail(selected!!.correo,"Nueva visita","Un visitante necesita tu atención.")
+                        }
+                    }
+                    val intent = Intent(this, MensajeCorreo::class.java)
+                    intent.putExtra("departamento", selected!!.departamento)
+                    startActivityForResult(intent,1)
+                }
+            }, { Log.e(mTAG, it.toString())})
         RequestHandler.getInstance(this).addToRequestQueue(req)
-
-
-        // Aquí se usa la base de datos
-        // Este solo es un ejemplo
-        /*val Empleados = arrayOf(
-            Empleado("Jorge Flores", "IT","jorge@email.com"),
-            Empleado("Enrique Ayala", "RH","enrique@email.com"),
-            Empleado("Rodolfo Garza", "Operaciones","rodolfo@email.com"),
-            Empleado("Luis Quintero", "Donaciones","luis@email.com"),
-            Empleado("Alexis Barbaro", "IT","alexis@email.com"),
-            Empleado("Mario Wong", "IT","mario@email.com"),
-            Empleado("Karina Montemayor", "RH","karina@email.com"),
-            Empleado("Eduardo Lopez", "Operaciones","eduardo@email.com")
-        )*/
-
-
     }
-
-
 
     // Handler para cuando se cierra el intent de MensajeCorreo, de tal forma que vuelve a MainActivity sin acumularse en el stack.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,21 +1,28 @@
 package com.example.visitapp.utilities
 
 import android.content.Context
+import android.icu.util.Calendar
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.android.volley.*
 import com.android.volley.toolbox.*
 import com.example.visitapp.data.Credentials
 import org.json.JSONObject
 import java.net.CookieHandler
 import java.net.CookieManager
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 
 class RequestHandler constructor(context: Context) {
-
     private val mTAG = RequestHandler::class.simpleName
     private val url = Credentials.API.URL
     companion object {
-
         @Volatile
         private var INSTANCE: RequestHandler? = null
         fun getInstance(context: Context) =
@@ -43,66 +50,52 @@ class RequestHandler constructor(context: Context) {
         }, { Log.i(mTAG, "Can't do")})
         addToRequestQueue(req)
     }
-    fun addVisit(fecha: String, departamento:String){
-        Log.i(mTAG,"Attemping to add visit")
-        Log.i(mTAG,fecha.toString())
-        val req: StringRequest =
-            object : StringRequest(Request.Method.POST, "$url/agregar-visita", Response.Listener<String>
-            { response ->
-                // Display the first 500 characters of the response string.
-                Log.i(mTAG, "yayResponse is: ${response.substring(0, response.length)}")
-            },
-                Response.ErrorListener { Log.i(mTAG, "Didnt work") }) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addVisit(departamento: String){
+        val date = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd HH:mm:ss")
+            .withZone(ZoneId.systemDefault())
+            .format(Instant.now())
 
+        val req: StringRequest =
+            object : StringRequest(Request.Method.POST, "$url/agregar-visita",
+                Response.Listener<String> { response ->
+                    // Display the first 500 characters of the response string.
+                    Log.i(mTAG, "Successfully added visit. Response is: ${response.substring(0, response.length)}")
+                },
+                Response.ErrorListener { Log.i(mTAG, "Could not add visit!!!") }) {
                 override fun getParams(): MutableMap<String, String> {
                     val mutableMap: HashMap<String, String> = mutableMapOf(
                         "departamento" to departamento,
-                        "fecha" to fecha
+                        "fecha" to date
                     ) as HashMap<String, String>
+                    Log.i(mTAG, "Attempting to add visit: $mutableMap")
                     return mutableMap
                 }
-
             }
         addToRequestQueue(req)
     }
     fun login(username: String=Credentials.API.USER, password: String=Credentials.API.PASSWORD) {
         val manager = CookieManager()
         CookieHandler.setDefault(manager)
-        var credentials = JSONObject()
-        credentials.put("user", username)
-
-        credentials.put("password", password)
-        Log.i(mTAG, credentials.toString())
-        /*
-        val req = JsonObjectRequest(Request.Method.POST, "$url/login", credentials,
-            {
-
-                response -> Log.d(mTAG, response.toString())
-            },
-            {
-                Log.e(mTAG, it.toString())
-            }
-        )
-        */
-        //here goes nothing
+        // Login request to API
         val req: StringRequest =
-            object : StringRequest(Request.Method.POST, "$url/login", Response.Listener<String>
-            { response ->
-                // Display the first 500 characters of the response string.
-                Log.i(mTAG, "Response is: ${response.substring(0, 500)}")
-            },
-                Response.ErrorListener { Log.i(mTAG, "Didnt work") }) {
-
+            object : StringRequest(Request.Method.POST, "$url/login",
+                Response.Listener<String> { response ->
+                    // Display the first 500 characters of the response string.
+                    Log.i(mTAG, "Response is: ${response.substring(0, 500)}")
+                },
+                Response.ErrorListener { Log.i(mTAG, "Something went wrong when logging in!!!") }) {
                 override fun getParams(): MutableMap<String, String> {
                     val mutableMap: HashMap<String, String> = mutableMapOf(
                         "user" to username,
                         "password" to password
                     ) as HashMap<String, String>
+                    Log.i(mTAG, mutableMap.toString())
                     return mutableMap
                 }
-
             }
-
+        // Make request
         addToRequestQueue(req)
     }
 }
