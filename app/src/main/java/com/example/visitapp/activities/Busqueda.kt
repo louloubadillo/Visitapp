@@ -48,7 +48,7 @@ class Busqueda : AppCompatActivity() {
         binding.buttonContinuar.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    Log.i(mTAG, selected!!.correo)
+                    Log.i("Seleccion", selected!!.correo)
                     EmailSender.sendEmail(selected!!.correo)
                 }
             }
