@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         RequestHandler.getInstance(this).login()
         delay(5000L)
         RequestHandler.getInstance(this).populateEmployees()
+        RequestHandler.getInstance(this).populateDepartments()
         DbInfo.initialized = true
     }
 }

@@ -38,10 +38,24 @@ class RequestHandler constructor(context: Context) {
         requestQueue.add(req)
     }
     fun populateEmployees() {
-        Log.i(mTAG, "HERE!")
+        val req = JsonArrayRequest(Request.Method.GET, "$url/departamentos", null,
+            { response ->
+                DbInfo.departments = Array(response!!.length()) { String() }
+                val len = response.length()
+                for (i in 0 until len) {
+                    Log.i(mTAG, response[i].toString())
+                    val jobj = response.getJSONObject(i)
+                    val id = jobj.getString("id_departamento")
+                    val name = jobj.getString("nombre")
+                    val id_main = jobj.getString("id_encargado")
+                    DbInfo.departments!![i] = name;
+                }
+            }, { Log.e(mTAG, it.toString())})
+        addToRequestQueue(req)
+    }
+    fun populateDepartments() {
         val req = JsonArrayRequest(Request.Method.GET, "$url/trabajadores", null,
             { response ->
-                Log.i(mTAG, "HERE!!!")
                 DbInfo.employees = Array(response!!.length()) { Empleado("", "", "") }
                 val len = response.length()
                 for (i in 0 until len) {
