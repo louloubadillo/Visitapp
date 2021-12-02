@@ -8,11 +8,13 @@ import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.example.visitapp.data.DbInfo
 import com.example.visitapp.databinding.ActivityMainBinding
 import com.example.visitapp.utilities.DbUtils
 import com.example.visitapp.utilities.EmailSender
 import com.example.visitapp.utilities.RequestHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -29,21 +31,16 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 Log.i(mTAG, "Generating email session")
                 EmailSender.initializeMailSession()
-//                DbUtils.connect()
+                if (!DbInfo.initialized) {
+                    initializeDb()
+                }
             }
         }
-        //comment this
-        val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
-        RequestHandler.getInstance(this).login()
-        //until here
 
         // Intents a Busqueda, Selección y Mensaje, respectivamente, en los botones correspondientes.
         mBinding.btPerson.setOnClickListener{
-
             val intent = Intent(this, Busqueda::class.java)
             startActivity(intent)
-
-            //RequestHandler.getInstance(this).getWorkers()
         }
 
         mBinding.btDepartment.setOnClickListener{
@@ -55,5 +52,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Mensaje::class.java)
             startActivity(intent)
         }
+    }
+    suspend fun initializeDb() {
+        val queue = RequestHandler.getInstance(this.applicationContext).requestQueue
+        RequestHandler.getInstance(this).login()
+        delay(5000L)
+        RequestHandler.getInstance(this).populateEmployees()
+        DbInfo.initialized = true
     }
 }

@@ -1,21 +1,20 @@
 package com.example.visitapp.utilities
 
 import android.content.Context
-import android.icu.util.Calendar
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.android.volley.*
 import com.android.volley.toolbox.*
 import com.example.visitapp.data.Credentials
+import com.example.visitapp.data.DbInfo
+import com.example.visitapp.models.Empleado
+import org.json.JSONArray
 import org.json.JSONObject
 import java.net.CookieHandler
 import java.net.CookieManager
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 
@@ -38,6 +37,24 @@ class RequestHandler constructor(context: Context) {
     fun <T> addToRequestQueue(req: Request<T>) {
         requestQueue.add(req)
     }
+    fun populateEmployees() {
+        Log.i(mTAG, "HERE!")
+        val req = JsonArrayRequest(Request.Method.GET, "$url/trabajadores", null,
+            { response ->
+                Log.i(mTAG, "HERE!!!")
+                DbInfo.employees = Array(response!!.length()) { Empleado("", "", "") }
+                val len = response.length()
+                for (i in 0 until len) {
+                    Log.i(mTAG, response[i].toString())
+                    val jobj = response.getJSONObject(i)
+                    val name = jobj.getString("nombre")
+                    val department = jobj.getString("departamento")
+                    val email = jobj.getString("email")
+                    DbInfo.employees!![i] = Empleado(name, department, email);
+                }
+            }, { Log.e(mTAG, it.toString())})
+        addToRequestQueue(req)
+    }
     fun getWorkers(){
         val req = StringRequest(Request.Method.GET, "$url/trabajadores", {
             response ->  Log.i(mTAG,"Response is: ${response.substring(0,500)}")
@@ -51,12 +68,11 @@ class RequestHandler constructor(context: Context) {
         addToRequestQueue(req)
     }
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addVisit(departamento: String){
+    fun addVisit(id_dpt: String){
         val date = DateTimeFormatter
             .ofPattern("yyyy-MM-dd HH:mm:ss")
             .withZone(ZoneId.systemDefault())
             .format(Instant.now())
-
         val req: StringRequest =
             object : StringRequest(Request.Method.POST, "$url/agregar-visita",
                 Response.Listener<String> { response ->
@@ -66,7 +82,7 @@ class RequestHandler constructor(context: Context) {
                 Response.ErrorListener { Log.i(mTAG, "Could not add visit!!!") }) {
                 override fun getParams(): MutableMap<String, String> {
                     val mutableMap: HashMap<String, String> = mutableMapOf(
-                        "departamento" to departamento,
+                        "departamento" to id_dpt,
                         "fecha" to date
                     ) as HashMap<String, String>
                     Log.i(mTAG, "Attempting to add visit: $mutableMap")
